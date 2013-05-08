@@ -1,4 +1,4 @@
-function [CYCLES, EVEN, ES, BADPAIRS, ADJ]=DSR3(S_matrix,V_matrix)
+function [CYCLES, EVEN, ES, BADPAIRS]=DSR3(S_matrix,V_matrix)
 
 % To add: infinity labels, +- entries, etc.
 
@@ -27,9 +27,9 @@ ADJ=DSR;
 
 EVEN = [];
 
-for i=1:length(CYCLES)
+for i=1:length(CYCLES)        
 	if (mod(sum(SIGNS{i} > 0) - length(SIGNS{i})/2, 2) == 0)
-		EVEN = [EVEN, i];		
+		EVEN = [EVEN, i];
 	end
 end
 
@@ -39,10 +39,11 @@ if sum(size(EVEN)) ~= 0
         evenLengths = [evenLengths, length(CYCLES{EVEN(i)})];
     end
     
-    evenMatrix = [evenLengths; EVEN]';    
-    evenMatrix = sortrows(evenMatrix, 1);
+    evenMatrix = [evenLengths; EVEN]';        
     
-    EVEN = evenMatrix(:,2)';
+    evenMatrix = sortrows(evenMatrix);
+    
+    EVEN = evenMatrix(:,2)';    
     
 end
 

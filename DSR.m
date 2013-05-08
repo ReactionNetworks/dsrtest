@@ -1,5 +1,5 @@
 
-function [CYCLES, EVEN, ES, BADPAIRS, ADJ]=DSR(filename)
+function [CYCLES, EVEN, ES, BADPAIRS]=DSR(filename)
 %function [S_matrix, V_matrix]=readSVFile(filename)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -86,8 +86,20 @@ endfor
 %%% Analyze the DSR graph
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-[CYCLES, EVEN, ES, BADPAIRS, ADJ]=DSR3(S,transpose(V))
+[CYCLES, EVEN, ES, BADPAIRS]=DSR3(S,transpose(V));
 
+e1=false; e2=false;
 
+if (sum(size(ES))<sum(size(EVEN))) 
+   e1=true;
+end
+if (sum(size(BADPAIRS))>0)
+   e2=true;
+end
+
+if and(!e1, !e2)
+  fprintf(stdout(),"DSR test successful! The system does not admit multiple nondegenerate equilibria for general kinetics, with or without outflows.\n")
+
+else fprintf(stdout(),"DSR test inconclusive. The DSR graph alone can not determine whether or not the system admits multiple equilibria.\n")  
 end
  
