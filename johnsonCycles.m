@@ -12,7 +12,7 @@
 %% output: CYCLES - array of cycles 
 %%         SIGNS  - array of sign sequences for edges of each cycle 
 %%
-%% Remarks: only cycles of length>2 are produced
+%% Remarks: only e-cycles of length 2 are included
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -75,7 +75,8 @@ global blocked;
                 signs = [signs, sign(AD(stack2(i),stack2(i+1)))];
             end             
             
-            if ((length(signs)>2)||(sum(abs(signs)==[1 1])~=2))
+%            if ((length(signs)>2)||(sum(abs(signs)==[1 1])~=2))
+            if ((length(signs)>2)||(sum(signs)==0))
                 CYCLE{end+1}=stack2;
                 SIGN{end+1}=signs;
             end
@@ -84,8 +85,6 @@ global blocked;
          
         elseif ~blocked(w)
 
- %         disp('A123')
-          
  %         disp('w='); disp(w)
  %         disp('B='); disp(B)
             if CIRCUIT(w)
@@ -148,7 +147,7 @@ global B;
 global blocked;
 
 
-%disp(VAD); drawnow;
+%disp(VAD); 
 
 while s<n
     

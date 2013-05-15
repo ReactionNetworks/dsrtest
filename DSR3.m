@@ -1,13 +1,31 @@
-function [CYCLES, EVEN, ES, BADPAIRS]=DSR3(S_matrix,V_matrix)
+function [CYCLES, EVEN, ES, BADPAIRS, ADJ]=DSR3(S_matrix,V_matrix)
 
 % To add: infinity labels, +- entries, etc.
 
 % Construct the incidence matrix of the DSR graph
+% Takes as input the stoichiometric matrix S_matrix=\Gamma and V=(Dv) 
+
+
+
+[noSpecies, noInteractions] = size(S_matrix);
+
+%set entries for V_matrix to match DSR labels 
+
+for i=1:noSpecies
+  for j=1:noInteractions
+    if (S_matrix(i,j)*V_matrix(j,i)<0) 
+       V_matrix(j,i) = -S_matrix(i,j);
+    elseif (V_matrix(j,i)~=0)
+       V_matrix(j,i)=sign(V_matrix(j,i))*rand(1);
+    end
+  end
+end
+
+
 
 S_matrix = sparse(S_matrix);
 V_matrix = sparse(V_matrix);
 
-[noSpecies, noInteractions] = size(S_matrix);
 
 DSR = zeros(noSpecies+noInteractions, noSpecies+noInteractions);
 
@@ -18,7 +36,7 @@ DSR=DSR';
 
 ADJ=DSR;
 
-% Construct the queue and the cycles
+% Construct the cycles
 [CYCLES, SIGNS] = johnsonCycles(DSR);
 
 %keyboard

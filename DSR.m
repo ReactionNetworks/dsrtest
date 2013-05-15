@@ -1,5 +1,5 @@
 
-function [CYCLES, EVEN, ES, BADPAIRS]=DSR(filename)
+function [CYCLES, EVEN, ES, BADPAIRS, ADJ]=DSR(filename)
 %function [S_matrix, V_matrix]=readSVFile(filename)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -11,9 +11,6 @@ function [CYCLES, EVEN, ES, BADPAIRS]=DSR(filename)
 fid = fopen(filename);
 
 line_data = fgetl(fid);
-
-disp(line_data)
-
 
 line_string = deblank(sprintf(line_data, '%s'));
 
@@ -86,7 +83,7 @@ endfor
 %%% Analyze the DSR graph
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-[CYCLES, EVEN, ES, BADPAIRS]=DSR3(S,transpose(V));
+[CYCLES, EVEN, ES, BADPAIRS, ADJ]=DSR3(S,transpose(V));
 
 e1=false; e2=false;
 
