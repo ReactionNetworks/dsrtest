@@ -1,0 +1,7 @@
+#A>2A
+
+S MATRIX
+1
+
+V MATRIX
+1
