@@ -8,7 +8,7 @@
 %% Implementation of Johnson's algorithm for enumerating all cycles in a digraph:
 %% SIAM J. Comput. 4(1) 1975 
 %%
-%% input:  AD - adjacency matrix with labels
+%% input:  ASD - adjacency matrix with labels
 %% output: CYCLES - array of cycles 
 %%         SIGNS  - array of sign sequences for edges of each cycle 
 %%
@@ -17,98 +17,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [CYCLES, SIGNS] = johnsonCycles(ASD)
-
-function UNBLOCK(u)
-    global B;
-    global blocked;
-    blocked(u)= false;
-    for w = B{u}             
-        B{u}=setdiff(B{u},[w]);
-        if blocked(w)
-            UNBLOCK(w);
-        end
-    end
-end
-
-function CIRC = CIRCUIT(v)
-
-global AD;
-
-global n;
-global A;
-
-global CYCLE;
-global SIGN;
-
-global stack1;
-global s;
-
-global SCC;
-
-global B;
-
-global blocked;
-
-
-    f = false;
-        
-    stack1=[stack1,v];
-   
-    blocked(v)=true;
-    
-%    disp(A)
-    
-    
-    for w = A{v}
-      
- %     disp('w=')
- %     disp(w)
- %     disp('s='); disp(s)
-      
-        if w==s
-
-  %          disp('here w=s')
-          
-            stack2 = [stack1,s];
-            signs = [];
-            for i=1:length(stack2)-1
-                signs = [signs, sign(AD(stack2(i),stack2(i+1)))];
-            end             
-            
-%            if ((length(signs)>2)||(sum(abs(signs)==[1 1])~=2))
-            if ((length(signs)>2)||(sum(signs)==0))
-                CYCLE{end+1}=stack2;
-                SIGN{end+1}=signs;
-            end
-            
-            f = true;
-         
-        elseif ~blocked(w)
-
- %         disp('w='); disp(w)
- %         disp('B='); disp(B)
-            if CIRCUIT(w)
-                f=true;
-            end
-        end
-    end
- 
-    if f
-        UNBLOCK(v);
-    else
-        for w = A{v} 
-            if ~ismember(v, B{w}) 
-                B{w}=union(B{w},[v]); 
-            end
-        end
-    end
-      
-    stack1=stack1(1:end-1);
-    CIRC = f;
-     
-end
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 global AD;
 AD = ASD;
@@ -145,10 +53,7 @@ VAD = AD;
 global B;
 
 global blocked;
-
-
-%disp(VAD); 
-
+ 
 while s<n
     
 %    disp(VAD)
@@ -223,5 +128,93 @@ end
 
 CYCLES=CYCLE;
 SIGNS=SIGN;
+
+function UNBLOCK(u)
+    global B;
+    global blocked;
+    blocked(u)= false;
+    for w = B{u}             
+        B{u}=setdiff(B{u},[w]);
+        if blocked(w)
+            UNBLOCK(w);
+        end
+    end
+end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function CIRC = CIRCUIT(v)
+
+global AD;
+
+global n;
+global A;
+
+global CYCLE;
+global SIGN;
+
+global stack1;
+global s;
+
+global SCC;
+
+global B;
+
+global blocked;
+
+
+    f = false;
+        
+    stack1=[stack1,v];
+   
+    blocked(v)=true;
+           
+    for w = A{v}
+      
+ %     disp('w=')
+ %     disp(w)
+ %     disp('s='); disp(s)
+      
+        if w==s
+
+  %          disp('here w=s')
+          
+            stack2 = [stack1,s];
+            signs = [];
+            for i=1:length(stack2)-1
+                signs = [signs, sign(AD(stack2(i),stack2(i+1)))];
+            end             
+            
+%            if ((length(signs)>2)||(sum(abs(signs)==[1 1])~=2))
+            if ((length(signs)>2)||(sum(signs)==0))
+                CYCLE{end+1}=stack2;
+                SIGN{end+1}=signs;
+            end
+            
+            f = true;
+         
+        elseif ~blocked(w)
+          
+            if CIRCUIT(w)
+                f=true;
+            end
+        end
+    end
+ 
+    if f
+        UNBLOCK(v);
+    else
+        for w = A{v} 
+            if ~ismember(v, B{w}) 
+                B{w}=union(B{w},[v]); 
+            end
+        end
+    end
+      
+    stack1=stack1(1:end-1);
+    CIRC = f;
+     
+end
+
     
 end
