@@ -95,8 +95,8 @@ if (sum(size(BADPAIRS))>0)
 end
 
 if and(!e1, !e2)
-  fprintf(stdout(),"DSR test successful! The system does not admit multiple nondegenerate equilibria for general kinetics, with or without outflows.\n")
+  fprintf(stdout(),"DSR test successful! The system satisfies condition <a title=\"IC3\" href=\"http://reaction-networks.net/wiki/CoNtRol#Injectivity_condition_3_.28IC3.29\">IC3</a>. It does not admit multiple positive nondegenerate equilibria for general kinetics.\n")
 
-else fprintf(stdout(),"DSR test inconclusive. The DSR graph alone can not determine whether or not the system admits multiple equilibria.\n")  
+else fprintf(stdout(),"DSR test inconclusive. This test alone can not determine whether or not the system admits multiple equilibria.\n")  
 end
  
