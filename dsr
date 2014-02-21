@@ -1,4 +1,13 @@
-#!/usr/bin/octave -qH
-#disp(argv(){1})
-warning("off");
-DSR(argv(){1});
+#!/bin/sh
+OCTAVE=$(which octave)
+if [ -z $OCTAVE ]
+then
+	echo "Error: octave binary not found"
+	exit 1
+fi
+if [ $# -ne 1 ]
+then
+	echo "Usage: dsr filename"
+	exit 2
+fi
+echo "warning('off');DSR('$1');" | $OCTAVE -qH --no-window-system
