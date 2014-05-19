@@ -7,7 +7,7 @@ then
 fi
 if [ $# -ne 1 ]
 then
-	echo "Usage: dsr filename"
+	echo "Usage: dsr <filename>"
 	exit 2
 fi
-echo "warning('off');DSR('$1');" | $OCTAVE -qH --no-window-system
+echo "warning('off');DSR('$1');" | $OCTAVE --quiet --no-history --no-window-system
