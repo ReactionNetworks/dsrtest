@@ -10,4 +10,7 @@ then
 	echo "Usage: dsr <filename>"
 	exit 2
 fi
+# Octave has a tendency to hang on large CRNs, which prevents it exiting when this wrapper script does.
+# To work around this, make sure to kill it if we reach the timeout.
+trap 'kill -KILL $(jobs -pr)' TERM
 echo "warning('off');DSR('$1');" | $OCTAVE --quiet --no-history --no-window-system
