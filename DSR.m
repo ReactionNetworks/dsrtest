@@ -81,8 +81,8 @@ if (sum(size(BADPAIRS))>0)
 end
 
 if and(!e1, !e2)
-  fprintf(stdout(),"DSR test successful! The system satisfies condition <a title=\"IC3\" href=\"http://reaction-networks.net/wiki/CoNtRol#Injectivity_condition_3_.28IC3.29\">IC3</a>. It does not admit multiple positive nondegenerate equilibria for general kinetics.\n")
+  fprintf(stdout(),"DSR test successful: Condition * holds! The system satisfies condition <a title=\"IC2''\" href=\"http://reaction-networks.net/wiki/CoNtRol#Injectivity_condition_2.27.27_.28IC2.27.27.29\">IC2''</a>. It is \"accordant\" and its fully open extension is injective on the nonnegative orthant. It does not admit multiple positive nondegenerate equilibria for general kinetics.\n")
 
-else fprintf(stdout(),"DSR test inconclusive. This test alone can not determine whether or not the system admits multiple equilibria.\n")  
+else fprintf(stdout(),"DSR test inconclusive. This test alone can not determine whether or not system is accordant, namely whether its fully open extension admits multiple nonnegative equilibria.\n")  
 end
  
