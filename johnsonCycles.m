@@ -130,8 +130,8 @@ CYCLES=CYCLE;
 SIGNS=SIGN;
 
 function UNBLOCK(u)
-    global B;
-    global blocked;
+    %global B;
+    %global blocked;
     blocked(u)= false;
     for w = B{u}             
         B{u}=setdiff(B{u},[w]);
@@ -145,22 +145,22 @@ end
 
 function CIRC = CIRCUIT(v)
 
-global AD;
+%global AD;
 
-global n;
-global A;
+%global n;
+%global A;
 
-global CYCLE;
-global SIGN;
+%global CYCLE;
+%global SIGN;
 
-global stack1;
-global s;
+%global stack1;
+%global s;
 
-global SCC;
+%global SCC;
 
-global B;
+%global B;
 
-global blocked;
+%global blocked;
 
 
     f = false;
@@ -210,7 +210,7 @@ global blocked;
             end
         end
     end
-      
+    
     stack1=stack1(1:end-1);
     CIRC = f;
      
